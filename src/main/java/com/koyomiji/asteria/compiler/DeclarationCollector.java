@@ -28,15 +28,20 @@ public class DeclarationCollector implements AstVisitor<Void> {
     }
 
     @Override
-    public Void visit(AstFunctionDecl node) {String cName;
-
+    public Void visit(AstFunctionDecl node) {
+        String cName;
         if (currentModule.moduleName.equals("main") && node.name.equals("main")) {
             cName = "_user_main";
         } else {
             cName = currentModule.moduleName + "_" + node.name;
         }
 
-        FunctionSignature sig = new FunctionSignature(node.name, cName, "void", Collections.emptyList());
+        FunctionSignature sig = new FunctionSignature(
+                node.name,
+                cName,
+                node.returnType,
+                Collections.emptyList()
+        );
         currentModule.addExport(sig);
         return null;
     }

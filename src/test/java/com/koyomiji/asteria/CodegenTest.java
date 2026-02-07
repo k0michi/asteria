@@ -17,7 +17,7 @@ class CodegenTest {
     mainBody.addStatement(new AstExpressionStmt(
             new AstCall("printf", List.of(new AstStringLiteral("Hello, World!")))
     ));
-    ast.addFunction(new AstFunctionDecl("main", mainBody));
+    ast.addFunction(new AstFunctionDecl("void", "main", mainBody));
     CompilationUnit unit = new CompilationUnit("main", ast);
 
     AsteriaCompiler compiler = new AsteriaCompiler();
@@ -29,7 +29,7 @@ class CodegenTest {
     String source = """
             import stdio;
             
-            function main() {
+            void main() {
                 printf("Hello, World!");
             }
             """;
@@ -50,7 +50,7 @@ class CodegenTest {
     mainBody.addStatement(new AstExpressionStmt(
             new AstCall("printf", List.of(new AstStringLiteral("Hello, World!")))
     ));
-    ast.addFunction(new AstFunctionDecl("main", mainBody));
+    ast.addFunction(new AstFunctionDecl("void", "main", mainBody));
     CompilationUnit unit = new CompilationUnit("main", ast);
 
     AsteriaCompiler compiler = new AsteriaCompiler();
@@ -65,7 +65,7 @@ class CodegenTest {
     greetBody.addStatement(new AstExpressionStmt(
             new AstCall("printf", List.of(new AstStringLiteral("Hello from Utils!")))
     ));
-    utilsAst.addFunction(new AstFunctionDecl("greet", greetBody));
+    utilsAst.addFunction(new AstFunctionDecl("void", "greet", greetBody));
     CompilationUnit utilsUnit = new CompilationUnit("utils", utilsAst);
 
     AstProgram mainAst = new AstProgram();
@@ -74,7 +74,7 @@ class CodegenTest {
     mainBody.addStatement(new AstExpressionStmt(
             new AstCall("greet", Collections.emptyList())
     ));
-    mainAst.addFunction(new AstFunctionDecl("main", mainBody));
+    mainAst.addFunction(new AstFunctionDecl("void", "main", mainBody));
     CompilationUnit mainUnit = new CompilationUnit("main", mainAst);
 
     AsteriaCompiler compiler = new AsteriaCompiler();

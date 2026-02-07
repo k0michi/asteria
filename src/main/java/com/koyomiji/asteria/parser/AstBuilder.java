@@ -30,12 +30,12 @@ public class AstBuilder extends AsteriaBaseVisitor<AstNode> {
 
   @Override
   public AstNode visitFunctionDecl(AsteriaParser.FunctionDeclContext ctx) {
+    String returnType = ctx.type().getText();
+
     String name = ctx.ID().getText();
-
-    // TODO: Arguments
-
     AstBlock body = (AstBlock) visit(ctx.block());
-    return new AstFunctionDecl(name, body);
+
+    return new AstFunctionDecl(returnType, name, body);
   }
 
   @Override

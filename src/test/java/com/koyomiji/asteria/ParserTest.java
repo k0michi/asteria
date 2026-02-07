@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParserTest {
   @Test
   void emptyFunction() {
-    String source = "function main() { }";
+    String source = "void main() { }";
 
     AstProgram prog = ParserDriver.parse(source);
 
@@ -25,7 +25,7 @@ public class ParserTest {
     String source = """
             import stdio;
             
-            function main() {
+            void main() {
                 printf("Hello");
             }
         """;

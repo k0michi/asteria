@@ -9,7 +9,14 @@ importStmt
     ;
 
 functionDecl
-    : 'function' ID '(' paramList? ')' block
+    : type ID '(' paramList? ')' block
+    ;
+
+type
+    : 'void'
+    | 'int'
+    | 'string'
+    | ID
     ;
 
 paramList
@@ -28,6 +35,7 @@ statement
 expression
     : ID '(' argList? ')'  # CallExpr
     | STRING               # StringExpr
+    | INT                  # IntExpr
     ;
 
 argList
@@ -35,9 +43,12 @@ argList
     ;
 
 IMPORT   : 'import';
-FUNCTION : 'function';
+VOID   : 'void';
+TYPE_INT : 'int';
+TYPE_STRING : 'string';
 
-ID       : [a-zA-Z_] [a-zA-Z0-9_]* ;
-STRING   : '"' (~["\r\n] | '\\"')* '"' ;
-WS       : [ \t\r\n]+ -> skip ;
-COMMENT  : '//' ~[\r\n]* -> skip ;
+ID     : [a-zA-Z_] [a-zA-Z0-9_]* ;
+STRING : '"' (~["\r\n] | '\\"')* '"' ;
+INT    : [0-9]+ ;
+WS     : [ \t\r\n]+ -> skip ;
+COMMENT: '//' ~[\r\n]* -> skip ;
