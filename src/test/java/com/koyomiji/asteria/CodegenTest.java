@@ -2,6 +2,7 @@ package com.koyomiji.asteria;
 
 import com.koyomiji.asteria.compiler.AsteriaCompiler;
 import com.koyomiji.asteria.compiler.CompilationUnit;
+import com.koyomiji.asteria.parser.ParserDriver;
 import com.koyomiji.asteria.tree.*;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,21 @@ class CodegenTest {
     ));
     ast.addFunction(new AstFunctionDecl("main", mainBody));
     CompilationUnit unit = new CompilationUnit("main", ast);
+
+    AsteriaCompiler compiler = new AsteriaCompiler();
+    var artifact = compiler.compile(List.of(unit));
+    CCompileAsserts.assertStdoutEquals("Hello, World!", artifact);
+  }
+
+  @Test void helloWorldFromSource() {
+    String source = """
+            import stdio;
+            
+            function main() {
+                printf("Hello, World!");
+            }
+            """;
+    CompilationUnit unit = new CompilationUnit("main", ParserDriver.parse(source));
 
     AsteriaCompiler compiler = new AsteriaCompiler();
     var artifact = compiler.compile(List.of(unit));
