@@ -9,4 +9,5 @@ public interface AstVisitor<R> {
   R visit(AstExpressionStmt node);
   R visit(AstCall node);
   R visit(AstStringLiteral node);
+  R visit(AstImport node);
 }
