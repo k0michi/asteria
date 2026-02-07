@@ -2,8 +2,20 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+def gitDescribe() {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags', '--always', '--dirty'
+        standardOutput = stdout
+        errorOutput = new ByteArrayOutputStream()
+        ignoreExitValue = true
+    }
+    def s = stdout.toString('UTF-8').trim()
+    return s ?: "unknown"
+}
+
+group = 'com.koyomiji.asteria'
+version = gitDescribe()
 
 repositories {
     mavenCentral()
