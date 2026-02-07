@@ -55,7 +55,7 @@ public class CGenerator implements AstVisitor<String> {
         var sig = module.exports.get(node.name);
 
         // TODO: Mangling
-        return node.returnType + sig.cName() + "() " + node.body.accept(this);
+        return node.returnType + " " + sig.cName() + "() " + node.body.accept(this);
     }
 
     @Override
