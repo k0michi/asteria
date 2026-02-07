@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'antlr'
 }
 
 def gitDescribe() {
@@ -22,10 +23,18 @@ repositories {
 }
 
 dependencies {
+    def antlrVersion = '4.13.2'
+    antlr "org.antlr:antlr4:$antlrVersion"
+    implementation "org.antlr:antlr4-runtime:$antlrVersion"
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
 test {
     useJUnitPlatform()
+}
+
+generateGrammarSource {
+    arguments += ["-package", "com.koyomiji.asteria.parser"]
+    arguments += ["-visitor", "-no-listener"]
 }
